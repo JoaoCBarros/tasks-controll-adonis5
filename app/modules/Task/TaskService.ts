@@ -1,5 +1,6 @@
 import TaskRepository from 'App/Repositories/TaskRepository'
 import UserRepository from 'App/Repositories/UserRepository'
+import { DateTime } from 'luxon'
 import ShowTaskOutput from './dto/ShowTaskOutput'
 import StoreTaskInput from './dto/StoreTaskInput'
 import UpdateTaskInput from './dto/UpdateTaskInput'
@@ -9,7 +10,8 @@ export default class TaskService {
   constructor(private taskRepository: TaskRepository, private userRepository: UserRepository) {}
 
   public async store(input: StoreTaskInput): Promise<ShowTaskOutput> {
-    const task = await this.taskRepository.storeTask(input)
+    const createdAt = DateTime.now()
+    const task = await this.taskRepository.storeTask({ ...input, createdAt })
     const user = await this.userRepository.getUserById(task.user_id)
     return { ...task, user }
   }
