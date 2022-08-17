@@ -3,7 +3,6 @@ import UpdateTaskInput from 'App/modules/Task/dto/UpdateTaskInput'
 import UpdateTaskStatusInput from 'App/modules/Task/dto/UpdateTaskStatusInput'
 import TaskEntity from 'App/modules/Task/Entity/TaskEntity'
 import TaskRepository from 'App/Repositories/TaskRepository'
-import { DateTime } from 'luxon'
 
 export default class TaskRepositoryMemoryImpl implements TaskRepository {
   private tasks: TaskEntity[] = []
@@ -17,15 +16,28 @@ export default class TaskRepositoryMemoryImpl implements TaskRepository {
 
     this.tasks.push(task)
 
-    return this.tasks.filter((task) => {
-      return task.id === newTaskId
-    })[0]
+    return this.getTaskById(newTaskId)
   }
   public async getTaskById(taskId: number): Promise<TaskEntity> {
-    throw new Error('Method not implemented.')
+    const tasksFilteredById = this.tasks.filter((task) => {
+      return task.id === taskId
+    })
+
+    this.haveAnyTask(tasksFilteredById)
+
+    return tasksFilteredById[0]
   }
+
+  private haveAnyTask(tasks: TaskEntity[]) {
+    if (tasks.length === 0) {
+      throw new Error('TASK_NOT_FOUND')
+    }
+  }
+
   public async deleteTaskById(taskId: number): Promise<void> {
-    throw new Error('Method not implemented.')
+    this.tasks = this.tasks.filter((task) => {
+      return task.id !== taskId
+    })
   }
   public async updateTaskById(input: UpdateTaskInput): Promise<void> {
     throw new Error('Method not implemented.')

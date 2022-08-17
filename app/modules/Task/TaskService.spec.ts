@@ -32,4 +32,23 @@ test.group('TaskService Testing', (group) => {
     assert.equal(addedTask.description, newTask.description)
     assert.equal(addedTask.user_id, newTask.user_id)
   })
+
+  test('should delete one task', async ({ assert }) => {
+    const newTask = {
+      title: 'Any Task',
+      description: 'Any My Task',
+      status: 'TODO' as TaskStatus,
+      user_id: 1,
+      expiresAt: DateTime.now(),
+    }
+
+    const { id } = await taskService.store(newTask)
+
+    id && (await taskService.delete(id))
+
+    id &&
+      (await assert.rejects(async () => {
+        await taskService.show(id)
+      }, 'TASK_NOT_FOUND'))
+  })
 })
