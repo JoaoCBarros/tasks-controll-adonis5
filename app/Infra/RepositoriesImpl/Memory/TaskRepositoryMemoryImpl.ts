@@ -40,7 +40,12 @@ export default class TaskRepositoryMemoryImpl implements TaskRepository {
     })
   }
   public async updateTaskById(input: UpdateTaskInput): Promise<void> {
-    throw new Error('Method not implemented.')
+    this.tasks = this.tasks.reduce((acc, cur) => {
+      if (cur.id === input.id) {
+        cur = { ...cur, ...input }
+      }
+      return [...acc, cur]
+    }, [])
   }
   public async updateTaskStatusById(input: UpdateTaskStatusInput): Promise<void> {
     throw new Error('Method not implemented.')

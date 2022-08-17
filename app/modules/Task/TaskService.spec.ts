@@ -7,15 +7,25 @@ import UserRepositoryMemoryImpl from 'App/Infra/RepositoriesImpl/Memory/UserRepo
 
 test.group('TaskService Testing', (group) => {
   let taskService: TaskService
-  group.each.setup(() => {
+  let taskCreatedId: number
+  group.each.setup(async () => {
     const taskRepositoryMemoryImpl = new TaskRepositoryMemoryImpl()
     const userRepositoryMemoryImpl = new UserRepositoryMemoryImpl()
-    userRepositoryMemoryImpl.createUser({
+    await userRepositoryMemoryImpl.createUser({
       name: 'João',
       email: 'joao@gmail.com',
       password: '123456',
     })
+    const newTask = {
+      title: 'Any Task',
+      description: 'Any My Task',
+      status: 'TODO' as TaskStatus,
+      user_id: 1,
+      expiresAt: DateTime.now(),
+    }
+
     taskService = new TaskService(taskRepositoryMemoryImpl, userRepositoryMemoryImpl)
+    taskCreatedId = (await taskService.store(newTask)).id
   })
 
   test('should store a one task', async ({ assert }) => {
@@ -34,21 +44,27 @@ test.group('TaskService Testing', (group) => {
   })
 
   test('should delete one task', async ({ assert }) => {
-    const newTask = {
-      title: 'Any Task',
-      description: 'Any My Task',
+    await taskService.delete(taskCreatedId)
+    await assert.rejects(async () => {
+      await taskService.show(taskCreatedId)
+    }, 'TASK_NOT_FOUND')
+  })
+
+  test('should update one task', async ({ assert }) => {
+    const newDataToTaskUpdate = {
+      id: taskCreatedId,
+      title: 'Any Task Updated',
+      description: 'Any My Task Updated',
       status: 'TODO' as TaskStatus,
       user_id: 1,
-      expiresAt: DateTime.now(),
     }
 
-    const { id } = await taskService.store(newTask)
+    await taskService.update(newDataToTaskUpdate)
 
-    id && (await taskService.delete(id))
+    const taskAfterUpdate = await taskService.show(taskCreatedId)
 
-    id &&
-      (await assert.rejects(async () => {
-        await taskService.show(id)
-      }, 'TASK_NOT_FOUND'))
+    assert.equal(taskAfterUpdate.title, newDataToTaskUpdate.title)
+    assert.equal(taskAfterUpdate.description, newDataToTaskUpdate.description)
+    assert.equal(taskAfterUpdate.user_id, newDataToTaskUpdate.user_id)
   })
 })
