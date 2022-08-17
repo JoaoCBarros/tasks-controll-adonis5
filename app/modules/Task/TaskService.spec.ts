@@ -67,4 +67,22 @@ test.group('TaskService Testing', (group) => {
     assert.equal(taskAfterUpdate.description, newDataToTaskUpdate.description)
     assert.equal(taskAfterUpdate.user_id, newDataToTaskUpdate.user_id)
   })
+  test('should update task status', async ({ assert }) => {
+    const newDataToTaskUpdate = {
+      id: taskCreatedId,
+      title: 'Any Task Updated',
+      description: 'Any My Task Updated',
+      status: 'TODO' as TaskStatus,
+      user_id: 1,
+    }
+
+    await taskService.updateStatus({
+      id: taskCreatedId,
+      status: 'IN_PROGRESS',
+    })
+
+    const taskAfterUpdateStatus = await taskService.show(taskCreatedId)
+
+    assert.equal(taskAfterUpdateStatus.status, 'IN_PROGRESS')
+  })
 })
