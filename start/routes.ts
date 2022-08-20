@@ -17,6 +17,7 @@
 | import './routes/customer'
 |
 */
+import './task/task-routes'
 
 import Route from '@ioc:Adonis/Core/Route'
 
