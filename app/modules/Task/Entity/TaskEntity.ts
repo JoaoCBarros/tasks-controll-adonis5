@@ -1,13 +1,17 @@
 import { DateTime } from 'luxon'
 
 export default interface TaskEntity {
-  id?: number
+  id: number
   title?: string
   description?: string
-  user_id: number
+  userId: number
   status?: TaskStatus
   createdAt?: DateTime
   expiresAt?: DateTime
 }
 
-export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'DONE'
+export enum TaskStatus {
+  TODO = 'TODO',
+  IN_PROGRESS = 'IN_PROGRESS',
+  DONE = 'DONE',
+}

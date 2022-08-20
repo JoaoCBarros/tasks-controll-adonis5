@@ -12,7 +12,12 @@ export default class TaskService {
   public async store(input: StoreTaskInput): Promise<ShowTaskOutput> {
     const createdAt = DateTime.now()
     const task = await this.taskRepository.storeTask({ ...input, createdAt })
-    const user = await this.userRepository.getUserById(task.user_id)
+
+    if (!task.id) {
+      throw new Error('SAVE_TASK_ERROR')
+    }
+
+    const user = await this.userRepository.getUserById(task.userId)
     return { ...task, user }
   }
 
@@ -26,7 +31,7 @@ export default class TaskService {
 
   public async show(taskId: number): Promise<ShowTaskOutput> {
     const task = await this.taskRepository.getTaskById(taskId)
-    const user = await this.userRepository.getUserById(task.user_id)
+    const user = await this.userRepository.getUserById(task.userId)
     return { ...task, user }
   }
 

@@ -19,8 +19,8 @@ test.group('TaskService Testing', (group) => {
     const newTask = {
       title: 'Any Task',
       description: 'Any My Task',
-      status: 'TODO' as TaskStatus,
-      user_id: 1,
+      status: TaskStatus.TODO,
+      userId: 1,
       expiresAt: DateTime.now(),
     }
 
@@ -32,15 +32,15 @@ test.group('TaskService Testing', (group) => {
     const newTask = {
       title: 'Any Task',
       description: 'Any My Task',
-      status: 'TODO' as TaskStatus,
-      user_id: 1,
+      status: TaskStatus.TODO,
+      userId: 1,
       expiresAt: DateTime.now(),
     }
 
     const addedTask = await taskService.store(newTask)
     assert.equal(addedTask.title, newTask.title)
     assert.equal(addedTask.description, newTask.description)
-    assert.equal(addedTask.user_id, newTask.user_id)
+    assert.equal(addedTask.userId, newTask.userId)
   })
 
   test('should delete one task', async ({ assert }) => {
@@ -55,8 +55,8 @@ test.group('TaskService Testing', (group) => {
       id: taskCreatedId,
       title: 'Any Task Updated',
       description: 'Any My Task Updated',
-      status: 'TODO' as TaskStatus,
-      user_id: 1,
+      status: TaskStatus.TODO,
+      userId: 1,
     }
 
     await taskService.update(newDataToTaskUpdate)
@@ -65,17 +65,17 @@ test.group('TaskService Testing', (group) => {
 
     assert.equal(taskAfterUpdate.title, newDataToTaskUpdate.title)
     assert.equal(taskAfterUpdate.description, newDataToTaskUpdate.description)
-    assert.equal(taskAfterUpdate.user_id, newDataToTaskUpdate.user_id)
+    assert.equal(taskAfterUpdate.userId, newDataToTaskUpdate.userId)
   })
 
   test('should update task status', async ({ assert }) => {
     await taskService.updateStatus({
       id: taskCreatedId,
-      status: 'IN_PROGRESS',
+      status: TaskStatus.IN_PROGRESS,
     })
 
     const taskAfterUpdateStatus = await taskService.show(taskCreatedId)
 
-    assert.equal(taskAfterUpdateStatus.status, 'IN_PROGRESS')
+    assert.equal(taskAfterUpdateStatus.status, TaskStatus.IN_PROGRESS)
   })
 })

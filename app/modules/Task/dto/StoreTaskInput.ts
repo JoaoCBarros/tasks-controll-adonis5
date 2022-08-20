@@ -4,7 +4,7 @@ import { TaskStatus } from '../Entity/TaskEntity'
 export default interface StoreTaskInput {
   title: string
   description: string
-  user_id: number
+  userId: number
   status: TaskStatus
   createdAt?: DateTime
   expiresAt?: DateTime
