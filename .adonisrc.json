@@ -48,6 +48,7 @@
     "@japa/preset-adonis/TestsProvider"
   ],
   "namespaces": {
-    "httpControllers": "App/Infra/Http"
+    "httpControllers": "App/Infra/Http",
+    "models": "App/Infra/Models"
   }
 }
