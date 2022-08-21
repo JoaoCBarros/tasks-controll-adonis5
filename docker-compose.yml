@@ -6,13 +6,13 @@ services:
       context: .
       dockerfile: ./Dockerfile.local
     ports:
-      - "3333:3333"
+      - 3333:3333
     depends_on:
       - db
     volumes:
-      - ./:/usr/src/app:ro
+      - ./:/usr/src/app
     environment:
-      - HOST=localhost
+      - HOST=0.0.0.0
       - PORT=3333
       - NODE_ENV=development
       - APP_KEY=V24pXkDWZtI8EOx978Bs1mfZqS3JTFAh
