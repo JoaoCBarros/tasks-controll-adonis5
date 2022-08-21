@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.local
+    ports:
+      - "3333:3333"
+    depends_on:
+      - db
+    volumes:
+      - ./:/usr/src/app:z
+    environment:
+      - HOST=localhost
+      - PORT=3333
+      - NODE_ENV=development
+      - APP_KEY=V24pXkDWZtI8EOx978Bs1mfZqS3JTFAh
+      - DRIVE_DISK=local
+      - DB_CONNECTION=pg
+      - PG_HOST=localhost
+      - PG_PORT=5432
+      - PG_USER=lucid
+      - PG_PASSWORD=
+      - PG_DB_NAME=task-control
+  db: 
+    image: postgres:alpine
+    volumes:
+      - task-control-db:/var/lib/pgsql
+    environment:
+      POSTGRES_USER: lucid
+      POSTGRES_PASSWORD: lucid
+      POSTGRES_DB: task_control
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+
+volumes:
+  task-control-db:
