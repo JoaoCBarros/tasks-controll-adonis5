@@ -1,6 +1,5 @@
 import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { DateTime } from 'luxon'
 import { TaskStatus } from 'App/modules/Task/Entity/TaskEntity'
 
 export default class CreateTaskValidator {

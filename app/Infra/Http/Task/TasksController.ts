@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import TaskRepositoryMemoryImpl from 'App/Infra/RepositoriesImpl/Memory/TaskRepositoryMemoryImpl'
-import UserRepositoryMemoryImpl from 'App/Infra/RepositoriesImpl/Memory/UserRepositoryMemoryImpl'
+import TaskRepositoryImpl from 'App/Infra/RepositoriesImpl/Postgres/TaskRepositoryImpl'
+import UserRepositoryImpl from 'App/Infra/RepositoriesImpl/Postgres/UserRepositoryImpl'
 import TaskService from 'App/modules/Task/TaskService'
 import TaskRepository from 'App/Repositories/TaskRepository'
 import UserRepository from 'App/Repositories/UserRepository'
@@ -11,8 +11,8 @@ export default class TasksController {
   private readonly userRepository: UserRepository
   private readonly taskService: TaskService
   constructor() {
-    this.taskRepository = new TaskRepositoryMemoryImpl()
-    this.userRepository = new UserRepositoryMemoryImpl()
+    this.taskRepository = new TaskRepositoryImpl()
+    this.userRepository = new UserRepositoryImpl()
     this.taskService = new TaskService(this.taskRepository, this.userRepository)
   }
   public async store({ request }: HttpContextContract) {
