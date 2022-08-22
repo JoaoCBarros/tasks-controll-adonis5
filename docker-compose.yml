@@ -1,6 +1,7 @@
-version: '3.9'
+version: '2'
 
 services:
+
   api:
     build:
       context: .
@@ -9,8 +10,9 @@ services:
       - 3333:3333
     depends_on:
       - db
+    # command: npm run migrate
     volumes:
-      - ./:/usr/src/app
+      - ./:/usr/src/app:z
     environment:
       - HOST=0.0.0.0
       - PORT=3333
@@ -18,11 +20,12 @@ services:
       - APP_KEY=V24pXkDWZtI8EOx978Bs1mfZqS3JTFAh
       - DRIVE_DISK=local
       - DB_CONNECTION=pg
-      - PG_HOST=localhost
+      - PG_HOST=db
       - PG_PORT=5432
       - PG_USER=lucid
-      - PG_PASSWORD=
-      - PG_DB_NAME=task-control
+      - PG_PASSWORD=lucid
+      - PG_DB_NAME=task_control
+
   db: 
     image: postgres:alpine
     volumes:
