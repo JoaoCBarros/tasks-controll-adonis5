@@ -10,8 +10,12 @@ export default class UserRepositoryImpl implements UserRepository {
   }
 
   public async createUser(input: CreateUserInput): Promise<UserEntity> {
-    const user = await User.create(input)
-    return user
+    try {
+      const user = await User.create(input)
+      return user
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 
   public async getUserByEmail(email: string): Promise<UserEntity> {
