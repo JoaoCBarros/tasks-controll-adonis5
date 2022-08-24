@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "test": "node ace test unit",
     "test:e2e": "node ace test e2e",
-    "migrate": "node ace migration:run"
+    "migrate": "node ace migration:run",
+    "migrate:prod": "node ace migration:run --force"
   },
   "eslintConfig": {
     "extends": [
