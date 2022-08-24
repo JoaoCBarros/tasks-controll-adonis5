@@ -27,4 +27,5 @@ export default Env.rules({
   PG_PASSWORD: Env.schema.string.optional(),
   PG_DB_NAME: Env.schema.string(),
   DB_CONNECTION: Env.schema.string(),
+  DATABASE_URL: Env.schema.string.optional(),
 })
