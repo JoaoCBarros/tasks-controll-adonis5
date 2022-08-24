@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "prestart": "node ace migration:run",
+    "poststart": "node ace migration:run",
     "start": "npm ci --production && node build/server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
