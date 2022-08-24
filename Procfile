@@ -1,2 +1,2 @@
 release: ENV_SILENT=true npm run migrate:prod
-web: ENV_SILENT=true npm start -p $PORT -h $HOST
+web: ENV_SILENT=true npm start -p PORT=$PORT HOST=$HOST
