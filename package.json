@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "start": "npm ci --production && node build/server.js",
+    "start": "npm ci --production && node ./build/server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "test": "node ace test unit",
     "test:e2e": "node ace test e2e",
     "migrate": "node ace migration:run",
-    "migrate:prod": "node ace migration:run --force"
+    "migrate:prod": "node ./build/ace migration:run --force"
   },
   "eslintConfig": {
     "extends": [
