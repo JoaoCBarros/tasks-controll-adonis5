@@ -35,14 +35,17 @@ const databaseConfig: DatabaseConfig = {
     */
     pg: {
       client: 'pg',
-      connection: Env.get('DATABASE_URL') || {
-        host: Env.get('PG_HOST'),
-        port: Env.get('PG_PORT'),
-        user: Env.get('PG_USER'),
-        password: Env.get('PG_PASSWORD', ''),
-        database: Env.get('PG_DB_NAME'),
-        ssl: Env.get('NODE_ENV') === 'production' ? true : false,
-      },
+      connection:
+        Env.get('NODE_ENV') === 'production'
+          ? Env.get('DATABASE_URL') + '?ssl=no-verify'
+          : {
+              host: Env.get('PG_HOST'),
+              port: Env.get('PG_PORT'),
+              user: Env.get('PG_USER'),
+              password: Env.get('PG_PASSWORD', ''),
+              database: Env.get('PG_DB_NAME'),
+              ssl: Env.get('NODE_ENV') === 'production' ? true : false,
+            },
       migrations: {
         naturalSort: true,
       },
