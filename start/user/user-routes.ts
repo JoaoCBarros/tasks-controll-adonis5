@@ -1,3 +1,6 @@
 import Route from '@ioc:Adonis/Core/Route'
-
-Route.post('user', 'UsersController.store').namespace('App/Infra/Http/User')
+Route.group(() => {
+  Route.post('user', 'UsersController.store')
+})
+  .namespace('App/Infra/Http/User')
+  .middleware(['auth'])

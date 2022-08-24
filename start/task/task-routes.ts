@@ -1,3 +1,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.post('task', 'TasksController.store').namespace('App/Infra/Http/Task')
+Route.group(() => {
+  Route.post('task', 'TasksController.store')
+})
+  .namespace('App/Infra/Http/Task')
+  .middleware(['auth'])
