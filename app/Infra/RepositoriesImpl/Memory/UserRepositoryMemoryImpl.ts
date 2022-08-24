@@ -32,6 +32,6 @@ export default class UserRepositoryMemoryImpl implements UserRepository {
   }
 
   public async getUserByEmail(email: string): Promise<UserEntity> {
-    throw new Error('Method not implemented.')
+    throw new Error(`Method not implemented. ${email}`)
   }
 }
