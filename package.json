@@ -12,7 +12,7 @@
     "test:e2e": "node ace test e2e",
     "migrate": "node ace migration:run",
     "migrate:prod": "node ./build/ace migration:run --force",
-    "seed": "node ace db:seed"
+    "seed": "node ./build/ace db:seed"
   },
   "eslintConfig": {
     "extends": [
