@@ -9,6 +9,7 @@ phases:
       - echo Installing source NPM dependencies...
       - npm install
       - echo Testing Started
+      - ls -l
       - npm run test
       - echo Testing End
   build:
