@@ -1,3 +1,4 @@
+# Ignore
 node_modules
 build
 coverage
@@ -6,3 +7,7 @@ coverage
 .env
 tmp
 core
+
+# Not Ignore
+!.env.test
+!.env.exemple
