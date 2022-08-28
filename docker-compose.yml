@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./Dockerfile.local
     ports:
-      - 3333:3333
+      - "3333:3333"
     depends_on:
       - db
     # command: npm run migrate
@@ -34,6 +34,16 @@ services:
       POSTGRES_USER: lucid
       POSTGRES_PASSWORD: lucid
       POSTGRES_DB: task_control
+      POSTGRES_HOST_AUTH_METHOD: trust
+  
+  db_test: 
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: lucid
+      POSTGRES_PASSWORD: lucid
+      POSTGRES_DB: task_control_test
       POSTGRES_HOST_AUTH_METHOD: trust
 
   adminer:
