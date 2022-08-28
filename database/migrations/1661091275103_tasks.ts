@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.string('title').notNullable()
       table.string('description').notNullable()
       table.string('status').notNullable()
+      table.bigInteger('user_id').references('users.id').onDelete('CASCADE').onUpdate('CASCADE')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

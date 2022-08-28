@@ -15,18 +15,18 @@ export default class TasksController {
     this.userRepository = new UserRepositoryImpl()
     this.taskService = new TaskService(this.taskRepository, this.userRepository)
   }
-  public async store({ request }: HttpContextContract) {
-    this.userRepository.createUser({
-      name: 'João',
-      email: 'joao@gmail.com',
-      password: '123@123',
-    })
-
+  public async store({ request, auth, response }: HttpContextContract) {
     const taskDataInput = await request.validate(CreateTaskValidator)
 
-    //@TODO - Implements Auth Layer
-    const userId = 1
+    if (!auth.user || !auth.user.id) {
+      return response.badRequest({
+        message: 'User Not Found',
+      })
+    }
 
-    return await this.taskService.store({ ...taskDataInput, userId })
+    return await this.taskService.store({
+      ...taskDataInput,
+      userId: auth.user.id,
+    })
   }
 }
