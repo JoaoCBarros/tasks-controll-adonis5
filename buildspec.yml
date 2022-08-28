@@ -7,13 +7,13 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
+      - echo $APP_KEY
       - ls -l
       - npm install
       - echo Testing Started
       - ls -l
       - npm run test
       - echo Testing End
-      - echo $APP_KEY
   build:
     commands:
       - echo Building Started on `date`
