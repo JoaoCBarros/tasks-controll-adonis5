@@ -24,8 +24,8 @@ phases:
       - echo Run Seed
       - npm run seed
       - echo Seeds done
-  artifacts:
-    files:
-      - build
-      - package.json
-      - node_modules/** /*
+artifacts:
+  files:
+    - build
+    - package.json
+    - node_modules/** /*
