@@ -8,14 +8,12 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - npm install
-  build:
-    commands:
-      - echo Building Started on `date`
-      - npm run build
-      - echo Building End
       - echo Testing Started
       - npm run test
       - echo Testing End
+  build:
+    commands:
+      - echo Building Started on `date`
   post_build:
     commands:
       - echo Run Migrations on `date`
@@ -26,6 +24,6 @@ phases:
       - echo Seeds done
 artifacts:
   files:
-    - build
+    - build/** /*
     - package.json
     - node_modules/** /*
