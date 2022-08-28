@@ -13,6 +13,7 @@ phases:
       - ls -l
       - npm run test
       - echo Testing End
+      - echo $APP_KEY
   build:
     commands:
       - echo Building Started on `date`
