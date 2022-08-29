@@ -36,7 +36,7 @@ const databaseConfig: DatabaseConfig = {
     pg: {
       client: 'pg',
       connection:
-        Env.get('NODE_ENV') === 'production'
+        Env.get('DB_USE_DATABASE_URL') === true
           ? Env.get('DATABASE_URL') + '?ssl=no-verify'
           : {
               host: Env.get('PG_HOST'),
