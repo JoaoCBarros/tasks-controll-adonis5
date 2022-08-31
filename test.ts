@@ -25,7 +25,9 @@ const kernel = new Ignitor(__dirname).kernel('test')
 
 kernel
   .boot()
-  .then(() => import('./tests/bootstrap'))
+  .then(() =>
+    process.env.TEST_MOD === 'unit' ? import('./tests/bootstrap.unit') : import('./tests/bootstrap')
+  )
   .then(({ runnerHooks, ...config }) => {
     const app: RunnerHooksHandler[] = [() => kernel.start()]
 
