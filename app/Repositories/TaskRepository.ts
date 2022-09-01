@@ -1,6 +1,7 @@
 import StoreTaskInput from 'App/modules/Task/dto/StoreTaskInput'
+import TaskListFilters from 'App/modules/Task/dto/TaskListFilters'
+import TaskListOutput from 'App/modules/Task/dto/TaskListOutput'
 import UpdateTaskInput from 'App/modules/Task/dto/UpdateTaskInput'
-import UpdateTaskStatusInput from 'App/modules/Task/dto/UpdateTaskStatusInput'
 import TaskEntity from 'App/modules/Task/Entity/TaskEntity'
 
 export default interface TaskRepository {
@@ -8,5 +9,5 @@ export default interface TaskRepository {
   getTaskById(taskId: number): Promise<TaskEntity>
   deleteTaskById(taskId: number): Promise<void>
   updateTaskById(input: UpdateTaskInput): Promise<void>
-  updateTaskStatusById(input: UpdateTaskStatusInput): Promise<void>
+  getAllTasks(taskListFilter: TaskListFilters): Promise<TaskListOutput>
 }

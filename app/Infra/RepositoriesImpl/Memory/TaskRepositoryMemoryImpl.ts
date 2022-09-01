@@ -1,17 +1,31 @@
 import StoreTaskInput from 'App/modules/Task/dto/StoreTaskInput'
+import TaskListFilters from 'App/modules/Task/dto/TaskListFilters'
+import TaskListOutput from 'App/modules/Task/dto/TaskListOutput'
 import UpdateTaskInput from 'App/modules/Task/dto/UpdateTaskInput'
-import UpdateTaskStatusInput from 'App/modules/Task/dto/UpdateTaskStatusInput'
 import TaskEntity from 'App/modules/Task/Entity/TaskEntity'
 import TaskRepository from 'App/Repositories/TaskRepository'
 
 export default class TaskRepositoryMemoryImpl implements TaskRepository {
   private tasks: TaskEntity[] = []
 
+  public async getAllTasks(_taskListFilter: TaskListFilters): Promise<TaskListOutput> {
+    return {
+      meta: {},
+      data: this.tasks,
+    }
+  }
+
   public async storeTask(input: StoreTaskInput): Promise<TaskEntity> {
     const newTaskId = this.tasks.length + 1
-    const task = {
+    const task: TaskEntity = {
       ...input,
       id: newTaskId,
+      user: {
+        id: 1,
+        name: 'UserTest',
+        email: 'usertest@gmail.com',
+        password: '1234',
+      },
     }
 
     this.tasks.push(task)
@@ -43,14 +57,6 @@ export default class TaskRepositoryMemoryImpl implements TaskRepository {
     this.tasks = this.tasks.reduce((acc, cur) => {
       if (cur.id === input.id) {
         cur = { ...cur, ...input }
-      }
-      return [...acc, cur]
-    }, [])
-  }
-  public async updateTaskStatusById(input: UpdateTaskStatusInput): Promise<void> {
-    this.tasks = this.tasks.reduce((acc, cur) => {
-      if (input.id === cur.id) {
-        cur = { ...cur, status: input.status }
       }
       return [...acc, cur]
     }, [])
