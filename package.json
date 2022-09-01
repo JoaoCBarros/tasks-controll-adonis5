@@ -8,7 +8,7 @@
     "start": "npm ci --production && node ./build/server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
-    "test": "node ace test unit",
+    "test": "TEST_MOD=unit node ace test unit",
     "test:e2e": "node ace test e2e",
     "migrate": "node ace migration:run",
     "migrate:prod": "node ./build/ace migration:run --force",
