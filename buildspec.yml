@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - echo $APP_KEY
+      - ls -l
+      - npm install
+      - echo Testing Started
+      - ls -l
+      - npm run test
+      - echo Testing End
+  build:
+    commands:
+      - echo Building Started on `date`
+      - npm run build
+  post_build:
+    commands:
+      - echo Run Migrations on `date`
+      - npm run migrate:prod
+      - echo Migrations done
+      - echo Run Seed
+      - npm run seed
+      - echo Seeds done
+artifacts:
+  files:
+    - build/** /*
+    - package.json
+    - node_modules/** /*

@@ -1,3 +1,4 @@
+import UserEntity from 'App/modules/User/Entity/UserEntity'
 import { DateTime } from 'luxon'
 
 export default interface TaskEntity {
@@ -8,10 +9,11 @@ export default interface TaskEntity {
   status?: TaskStatus
   createdAt?: DateTime
   expiresAt?: DateTime
+  user: UserEntity
 }
 
 export enum TaskStatus {
-  TODO = 'TODO',
-  IN_PROGRESS = 'IN_PROGRESS',
-  DONE = 'DONE',
+  HIGH_PRIORITY = 'HIGH_PRIORITY',
+  MIDDLE_PRIORITY = 'HIGH_PRIORITY',
+  LOW_PRIORITY = 'HIGH_PRIORITY',
 }
